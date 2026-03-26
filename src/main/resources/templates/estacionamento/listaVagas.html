@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8">
+    <title>Garagem</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  </head>
+  <body>
+    <header>
+      <h1>Garagem</h1>
+      <nav>
+        <a th:href="@{/cadastrarVaga}">Cadastrar Vaga</a>
+        <a th:href="@{/vaga}">Lista de Vagas</a>
+      </nav>
+    </header>
+    <div class="container">
+      <table border="1">
+        <thead>
+          <tr>
+            <th>Código</th>
+            <th>Placa</th>
+            <th>Veiculo</th>
+            <th>Data</th>
+            <th>Entrada</th>
+            <th>Saída</th>
+            <th>Valor</th>
+            <th colspan="2" class="acoes">Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="vaga: ${vagas}">
+            <td th:text="${vaga.codigo}"></td>
+            <td th:text="${vaga.placa}"></td>
+            <td th:text="${vaga.veiculo}"></td>
+            <td th:text="${vaga.data}"></td>
+            <td th:text="${vaga.hentrada}"></td>
+            <td th:text="${vaga.hsaida}"></td>
+            <td th:text="${vaga.valor}"></td>
+            <td class="acoes">
+              <a th:href="@{'/editarVaga' (codigo=${vaga.codigo})}" class="botao-acao editar">
+                <i class="fas fa-edit"></i>
+              </a>
+            </td>
+            <td class="acoes">
+              <a th:href="@{'/deletarVaga' (codigo=${vaga.codigo})}"
+                 onclick="return confirm('Tem certeza que deseja excluir esta vaga?')"
+                 class="botao-acao excluir">
+                <i class="fas fa-trash-alt"></i>
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+      <a th:href="@{/cadastrarVaga}" class="botao-link">Cadastrar Nova Vaga</a>
+    </div>
+  </body>
+</html>
