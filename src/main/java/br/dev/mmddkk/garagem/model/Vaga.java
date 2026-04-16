@@ -2,46 +2,53 @@ package br.dev.mmddkk.garagem.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.NumberFormat;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 @Entity
 public class Vaga implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private long codigo;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column( name = "id_vaga")
+    private Long idVaga;
 
     @NotEmpty
+    @Column(name = "placa", length = 10, nullable = false)
     private String placa;
 
     @NotEmpty
+    @Column(name = "veiculo", length = 60)
     private String veiculo;
 
-    @NotEmpty
-    private String data;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    @Column(name = "data")
+    private LocalDate data;
 
-    @NotEmpty
-    private String hentrada;
+    @DateTimeFormat(pattern = "HH:mm")
+    @Column(name = "hora_entrada")
+    private LocalTime hentrada;
 
-    @NotEmpty
-    private String hsaida;
+    @DateTimeFormat(pattern = "HH:mm")
+    @Column(name = "hora_saida")
+    private LocalTime hsaida;
 
-    @NotEmpty
-    private String valor;
+    @NumberFormat(pattern = "#,##0.00")
+    @Column(name = "valor", precision = 10, scale = 2)
+    private BigDecimal valor;
 
-    @OneToMany(mappedBy = "vaga", cascade = CascadeType.REMOVE)
-    private List<Cliente> cliente;
-
-    public long getCodigo() {
-        return codigo;
+    public Long getIdVaga() {
+        return idVaga;
     }
 
-    public void setCodigo(long codigo) {
-        this.codigo = codigo;
+    public void setIdVaga(Long idVaga) {
+        this.idVaga = idVaga;
     }
 
     public @NotEmpty String getPlaca() {
@@ -60,43 +67,35 @@ public class Vaga implements Serializable {
         this.veiculo = veiculo;
     }
 
-    public @NotEmpty String getData() {
+    public LocalDate getData() {
         return data;
     }
 
-    public void setData(@NotEmpty String data) {
+    public void setData(LocalDate data) {
         this.data = data;
     }
 
-    public @NotEmpty String getHentrada() {
+    public LocalTime getHentrada() {
         return hentrada;
     }
 
-    public void setHentrada(@NotEmpty String hentrada) {
+    public void setHentrada(LocalTime hentrada) {
         this.hentrada = hentrada;
     }
 
-    public @NotEmpty String getHsaida() {
+    public LocalTime getHsaida() {
         return hsaida;
     }
 
-    public void setHsaida(@NotEmpty String hsaida) {
+    public void setHsaida(LocalTime hsaida) {
         this.hsaida = hsaida;
     }
 
-    public @NotEmpty String getValor() {
+    public BigDecimal getValor() {
         return valor;
     }
 
-    public void setValor(@NotEmpty String valor) {
+    public void setValor(BigDecimal valor) {
         this.valor = valor;
-    }
-
-    public List<Cliente> getCliente() {
-        return cliente;
-    }
-
-    public void setCliente(List<Cliente> cliente) {
-        this.cliente = cliente;
     }
 }

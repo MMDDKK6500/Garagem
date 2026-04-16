@@ -30,7 +30,7 @@
         </thead>
         <tbody>
           <tr th:each="vaga: ${vagas}">
-            <td th:text="${vaga.codigo}"></td>
+            <td th:text="${vaga.idVaga}"></td>
             <td th:text="${vaga.placa}"></td>
             <td th:text="${vaga.veiculo}"></td>
             <td th:text="${vaga.data}"></td>
@@ -38,12 +38,12 @@
             <td th:text="${vaga.hsaida}"></td>
             <td th:text="${vaga.valor}"></td>
             <td class="acoes">
-              <a th:href="@{'/editarVaga' (codigo=${vaga.codigo})}" class="botao-acao editar">
+              <a th:href="@{'/vaga/' + ${vaga.idVaga} + '/editar'}" class="botao-acao editar">
                 <i class="fas fa-edit"></i>
               </a>
             </td>
             <td class="acoes">
-              <a th:href="@{'/deletarVaga' (codigo=${vaga.codigo})}"
+              <a th:href="@{'/vaga/' + ${vaga.idVaga} + '/deletar'}"
                  onclick="return confirm('Tem certeza que deseja excluir esta vaga?')"
                  class="botao-acao excluir">
                 <i class="fas fa-trash-alt"></i>
